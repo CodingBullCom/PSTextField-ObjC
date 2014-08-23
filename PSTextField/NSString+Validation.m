@@ -124,25 +124,37 @@ NSString const *PSCountryNameInvalidFormatErrorDesc     = @"Country name is inva
     return success;
 }
 
-- (BOOL)validateEmail : (NSError **)error {
+- (BOOL)validateEmail : (NSError **)error
+{
     
     BOOL success = NO;
+    PSDataValidationErrorCode errorCode = PSEmptyDataValidationErrorCode;
+    NSString *errorDescStr = (NSString*)PSEmptyStringErrorDesc;
+    
     NSString *emailRegex = @"[A-Z0-9a-z._-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
     NSPredicate *email = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
     
     if(!self || [self length] == 0){
-        if (error != NULL) *error = [NSError errorWithDomain:PSDataValidationErrorDomain
-                                                        code:PSEmailLengthZeroErrorCode
-                                                    userInfo:[NSDictionary dictionaryWithObjectsAndKeys:PSEmailLengthZeroErrorDesc, NSLocalizedDescriptionKey,nil]];
+        
+        errorCode =  PSEmailLengthZeroErrorCode;
+        errorDescStr = (NSString *)PSEmailLengthZeroErrorDesc;
         
     }else if (![email evaluateWithObject:self]) {
         
-        if (error != NULL) *error = [NSError errorWithDomain:PSDataValidationErrorDomain
-                                                        code:PSEmailInvalidFormatErrorCode
-                                                    userInfo:[NSDictionary dictionaryWithObjectsAndKeys:PSEmailInvalidFormatErrorDesc,NSLocalizedDescriptionKey,nil]];
+        errorCode =  PSEmailInvalidFormatErrorCode;
+        errorDescStr = (NSString *)PSEmailInvalidFormatErrorDesc;
+        
     }else{
-        if (error != NULL) *error = nil;
+        
+        *error = nil;
         success = YES;
+    }
+    
+    if(success == NO)
+    {
+        *error = [NSError errorWithDomain:PSDataValidationErrorDomain
+                                     code:PSEmailLengthZeroErrorCode
+                                 userInfo:@{NSLocalizedDescriptionKey: errorDescStr}];
     }
     return success;
 }
@@ -150,33 +162,35 @@ NSString const *PSCountryNameInvalidFormatErrorDesc     = @"Country name is inva
 - (BOOL)validateUserName  : (NSError **)error
 {
     BOOL success = NO;
+    PSDataValidationErrorCode errorCode = PSEmptyDataValidationErrorCode;
+    NSString *errorDescStr = (NSString*)PSEmptyStringErrorDesc;
     NSString *userNameRegex = @"[A-Z0-9a-z._-]{7,32}";
     NSPredicate *userName = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", userNameRegex];
     
     if(!self || [self length] == 0){
-        if (error != NULL)
-        {
-            *error = [NSError errorWithDomain:PSDataValidationErrorDomain
-                                         code:PSUserNameLengthZeroErrorCode
-                                     userInfo:[NSDictionary dictionaryWithObjectsAndKeys:PSUserNameLengthZeroErrorDesc, NSLocalizedDescriptionKey,nil]];
-        }
+        
+        errorCode = PSUserNameLengthZeroErrorCode;
+        errorDescStr = (NSString *)PSUserNameLengthZeroErrorDesc;
+        
     }else if(self.length < 7){
-        if (error != NULL)
-        {
-            *error = [NSError errorWithDomain:PSDataValidationErrorDomain
-                                         code:PSUserNameLengthMinimumErrorCode
-                                     userInfo:[NSDictionary dictionaryWithObjectsAndKeys:PSUserNameLengthMinimumErrorDesc, NSLocalizedDescriptionKey,nil]];
-        }
+        
+        errorCode = PSUserNameLengthMinimumErrorCode;
+        errorDescStr = (NSString *)PSUserNameLengthMinimumErrorDesc;
+        
     }else if (![userName evaluateWithObject:self]) {
-        if (error != NULL)
-        {
-            *error = [NSError errorWithDomain:PSDataValidationErrorDomain
-                                         code:PSUserNameInvalidFormatErrorCode
-                                     userInfo:[NSDictionary dictionaryWithObjectsAndKeys:PSUserNameInvalidFormatErrorDesc,NSLocalizedDescriptionKey,nil]];
-        }
+        errorCode = PSUserNameInvalidFormatErrorCode;
+        errorDescStr = (NSString *)PSUserNameInvalidFormatErrorDesc;
+        
     }else{
         if (error != NULL)*error = nil;
         success = YES;
+    }
+    
+    if(success == NO)
+    {
+        *error = [NSError errorWithDomain:PSDataValidationErrorDomain
+                                     code:errorCode
+                                 userInfo:@{NSLocalizedDescriptionKey: errorDescStr}];
     }
     return success;
 }
@@ -184,27 +198,35 @@ NSString const *PSCountryNameInvalidFormatErrorDesc     = @"Country name is inva
 - (BOOL)validatePassword  : (NSError **)error
 {
     BOOL success = NO;
+    PSDataValidationErrorCode errorCode = PSEmptyDataValidationErrorCode;
+    NSString *errorDescStr = (NSString*)PSEmptyStringErrorDesc;
     NSString *passwordRegex = @"[A-Z0-9a-z]{7,32}";
     NSPredicate *password = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", passwordRegex];
     
     if(!self || [self length]== 0){
-        if (error != NULL) *error = [NSError errorWithDomain:PSDataValidationErrorDomain
-                                                        code:PSPasswordLengthZeroErrorCode
-                                                    userInfo:[NSDictionary dictionaryWithObjectsAndKeys:PSPasswordLengthZeroErrorDesc, NSLocalizedDescriptionKey,nil]];
+        
+        errorCode = PSPasswordLengthZeroErrorCode;
+        errorDescStr = (NSString *)PSPasswordLengthZeroErrorDesc;
         
     }else if(self.length < 7){
-        if (error != NULL)*error = [NSError errorWithDomain:PSDataValidationErrorDomain
-                                                       code:PSPasswordLengthMinimumErrorCode
-                                                   userInfo:[NSDictionary dictionaryWithObjectsAndKeys:PSPasswordLengthMinimumErrorDesc, NSLocalizedDescriptionKey,nil]];
+        errorCode = PSPasswordLengthMinimumErrorCode;
+        errorDescStr = (NSString *)PSPasswordLengthMinimumErrorDesc;
         
     }else if (![password evaluateWithObject:self]) {
+
+        errorCode = PSPasswordInvalidFormatErrorCode;
+        errorDescStr = (NSString *)PSPasswordInvalidFormatErrorDesc;
         
-        if (error != NULL)*error = [NSError errorWithDomain:PSDataValidationErrorDomain
-                                                       code:PSPasswordInvalidFormatErrorCode
-                                                   userInfo:[NSDictionary dictionaryWithObjectsAndKeys:PSPasswordInvalidFormatErrorDesc,NSLocalizedDescriptionKey,nil]];
     }else{
-        if (error != NULL)*error = nil;
+        *error = nil;
         success = YES;
+    }
+    
+    if(success == NO)
+    {
+        *error = [NSError errorWithDomain:PSDataValidationErrorDomain
+                                     code:errorCode
+                                 userInfo:@{NSLocalizedDescriptionKey: errorDescStr}];
     }
     return success;
     
@@ -213,10 +235,15 @@ NSString const *PSCountryNameInvalidFormatErrorDesc     = @"Country name is inva
 -(BOOL)validateCountryCode : (NSError **)error
 {
     BOOL success = NO;
+    PSDataValidationErrorCode errorCode = PSEmptyDataValidationErrorCode;
+    NSString *errorDescStr = (NSString*)PSEmptyStringErrorDesc;
     NSString *phoneRegex = @"[+][0-9]{1,4}";
     NSPredicate *countryCodeTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", phoneRegex];
     
     if(!self || [self length]== 0){
+        errorCode = PSCountryISDCodeLengthZeroErrorCode;
+        errorDescStr = (NSString *)PSCountryISDCodeLengthZeroErrorDesc;
+
         if (error != NULL)
         {
             *error = [NSError errorWithDomain:PSDataValidationErrorDomain
@@ -225,22 +252,21 @@ NSString const *PSCountryNameInvalidFormatErrorDesc     = @"Country name is inva
         }
         
     }
-    else{
+    else if(![countryCodeTest evaluateWithObject:self])
+    {
+        errorCode = PSInvalidCountryISDCodeErrorCode;
+        errorDescStr = (NSString *)PSInvalidCountryISDCodeErrorDesc;
         
-        if(![countryCodeTest evaluateWithObject:self])
-        {
-            if (error != NULL)
-            {
-                *error = [NSError errorWithDomain:PSDataValidationErrorDomain
-                                             code:PSInvalidCountryISDCodeErrorCode
-                                         userInfo:[NSDictionary dictionaryWithObjectsAndKeys:PSInvalidCountryISDCodeErrorDesc,NSLocalizedDescriptionKey,nil]];
-            }
-        }else{
-            
-            if (error != NULL)
+    }else{
                 *error = nil;
             success = YES;
-        }
+    }
+    
+    if(success == NO)
+    {
+        *error = [NSError errorWithDomain:PSDataValidationErrorDomain
+                                     code:errorCode
+                                 userInfo:@{NSLocalizedDescriptionKey: errorDescStr}];
     }
     return success;
 }
@@ -248,34 +274,30 @@ NSString const *PSCountryNameInvalidFormatErrorDesc     = @"Country name is inva
 - (BOOL)validatePhoneNumber : (NSError **)error
 {
     BOOL success = NO;
+    PSDataValidationErrorCode errorCode = PSEmptyDataValidationErrorCode;
+    NSString *errorDescStr = (NSString*)PSEmptyStringErrorDesc;
     NSString *phoneRegex = @"[0-9]{7,12}";
-    NSPredicate *countryCodeTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", phoneRegex];
+    NSPredicate *phoneNumberPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", phoneRegex];
     
     if(!self || [self length]== 0){
-        if (error != NULL)
-        {
-            *error = [NSError errorWithDomain:PSDataValidationErrorDomain
-                                         code: PSCountryISDCodeLengthZeroErrorCode
-                                     userInfo:@{NSLocalizedDescriptionKey:PSPhoneNumberLengthZeroErrorDesc}];
-        }
-        
+        errorCode = PSPhoneNumberLengthZeroErrorCode;
+        errorDescStr = (NSString *)PSPhoneNumberLengthZeroErrorDesc;        
     }
-    else{
-        
-        if(![countryCodeTest evaluateWithObject:self])
-        {
-            if (error != NULL)
-            {
-                *error = [NSError errorWithDomain:PSDataValidationErrorDomain
-                                             code:PSInvalidCountryISDCodeErrorCode
-                                         userInfo:@{NSLocalizedDescriptionKey:PSInvalidPhoneNumberErrorDesc}];
-            }
-        }else{
-            
-            if (error != NULL)
-                *error = nil;
-            success = YES;
-        }
+    else if(![phoneNumberPredicate evaluateWithObject:self])
+    {
+            errorCode = PSInvalidPhoneNumberErrorCode;
+            errorDescStr = (NSString *)PSInvalidPhoneNumberErrorDesc;
+
+    }else{
+        *error = nil;
+        success = YES;
+    }
+    
+    if(success == NO)
+    {
+        *error = [NSError errorWithDomain:PSDataValidationErrorDomain
+                                     code:errorCode
+                                 userInfo:@{NSLocalizedDescriptionKey:errorDescStr}];
     }
     return success;
 }
