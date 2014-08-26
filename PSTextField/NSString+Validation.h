@@ -55,18 +55,18 @@ typedef NS_ENUM(NSUInteger, PSDataValidationErrorCode) {
 
 @interface NSString (Validation)
 
-- (BOOL)validateUserName: (NSError **)error;
-- (BOOL)validatePassword: (NSError **)error;
-- (BOOL)validateFirstName: (NSError **)error;
-- (BOOL)validateLastName: (NSError **)error;
-- (BOOL)validateEmail: (NSError **)error;
-- (BOOL)validateCountryCode: (NSError **)error;
-- (BOOL)validatePhoneNumber: (NSError **)error;
-- (BOOL)validateDate: (NSError **)error;
-- (BOOL)validateTime: (NSError **)error;
-- (BOOL)validatePlace: (NSError **)error;
-- (BOOL)validateCity: (NSError **)error;
-- (BOOL)validateState: (NSError **)error;
-- (BOOL)validateCountry: (NSError **)error;
-- (BOOL)validateEmpty: (NSError **)error;
+- (BOOL)validateUserName: (NSError * __autoreleasing *)error;
+- (BOOL)validatePassword: (NSError * __autoreleasing *)error;
+- (BOOL)validateFirstName: (NSError * __autoreleasing *)error;
+- (BOOL)validateLastName: (NSError * __autoreleasing *)error;
+- (BOOL)validateEmail: (NSError * __autoreleasing *)error;
+- (BOOL)validateCountryCode: (NSError * __autoreleasing *)error;
+- (BOOL)validatePhoneNumber: (NSError * __autoreleasing *)error;
+- (BOOL)validateDate: (NSError * __autoreleasing *)error;
+- (BOOL)validateTime: (NSError * __autoreleasing *)error;
+- (BOOL)validatePlace: (NSError * __autoreleasing *)error;
+- (BOOL)validateCity: (NSError * __autoreleasing *)error;
+- (BOOL)validateState: (NSError * __autoreleasing *)error;
+- (BOOL)validateCountry: (NSError * __autoreleasing *)error;
+- (BOOL)validateEmpty: (NSError * __autoreleasing *)error;
 @end

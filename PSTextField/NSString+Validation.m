@@ -52,7 +52,7 @@ NSString const *PSCountryNameInvalidFormatErrorDesc     = @"Country name is inva
 
 @implementation NSString (Validation)
 
-- (BOOL)validateFirstName  : (NSError **)error
+- (BOOL)validateFirstName  : (NSError * __autoreleasing *)error
 {
     BOOL success = NO;
     PSDataValidationErrorCode errorCode = PSEmptyDataValidationErrorCode;
@@ -88,7 +88,7 @@ NSString const *PSCountryNameInvalidFormatErrorDesc     = @"Country name is inva
     return success;
 }
 
-- (BOOL)validateLastName  : (NSError **)error
+- (BOOL)validateLastName  : (NSError * __autoreleasing *)error
 {
     BOOL success = NO;
     PSDataValidationErrorCode errorCode = PSEmptyDataValidationErrorCode;
@@ -124,7 +124,7 @@ NSString const *PSCountryNameInvalidFormatErrorDesc     = @"Country name is inva
     return success;
 }
 
-- (BOOL)validateEmail : (NSError **)error
+- (BOOL)validateEmail : (NSError * __autoreleasing *)error
 {
     
     BOOL success = NO;
@@ -159,7 +159,7 @@ NSString const *PSCountryNameInvalidFormatErrorDesc     = @"Country name is inva
     return success;
 }
 
-- (BOOL)validateUserName  : (NSError **)error
+- (BOOL)validateUserName  : (NSError * __autoreleasing *)error
 {
     BOOL success = NO;
     PSDataValidationErrorCode errorCode = PSEmptyDataValidationErrorCode;
@@ -195,7 +195,7 @@ NSString const *PSCountryNameInvalidFormatErrorDesc     = @"Country name is inva
     return success;
 }
 
-- (BOOL)validatePassword  : (NSError **)error
+- (BOOL)validatePassword  : (NSError * __autoreleasing *)error
 {
     BOOL success = NO;
     PSDataValidationErrorCode errorCode = PSEmptyDataValidationErrorCode;
@@ -232,7 +232,7 @@ NSString const *PSCountryNameInvalidFormatErrorDesc     = @"Country name is inva
     
 }
 
--(BOOL)validateCountryCode : (NSError **)error
+-(BOOL)validateCountryCode : (NSError * __autoreleasing *)error
 {
     BOOL success = NO;
     PSDataValidationErrorCode errorCode = PSEmptyDataValidationErrorCode;
@@ -271,7 +271,7 @@ NSString const *PSCountryNameInvalidFormatErrorDesc     = @"Country name is inva
     return success;
 }
 
-- (BOOL)validatePhoneNumber : (NSError **)error
+- (BOOL)validatePhoneNumber : (NSError * __autoreleasing *)error
 {
     BOOL success = NO;
     PSDataValidationErrorCode errorCode = PSEmptyDataValidationErrorCode;
@@ -302,7 +302,7 @@ NSString const *PSCountryNameInvalidFormatErrorDesc     = @"Country name is inva
     return success;
 }
 
-- (BOOL)validateEmpty: (NSError **)error
+- (BOOL)validateEmpty: (NSError * __autoreleasing *)error
 {
     BOOL success = NO;
     if(!self || [self length]== 0){
@@ -315,7 +315,7 @@ NSString const *PSCountryNameInvalidFormatErrorDesc     = @"Country name is inva
     return success;
 }
 
-- (BOOL)validateDate: (NSError **)error
+- (BOOL)validateDate: (NSError * __autoreleasing *)error
 {
     BOOL success = NO;
     if(!self || [self length]== 0){
@@ -328,7 +328,7 @@ NSString const *PSCountryNameInvalidFormatErrorDesc     = @"Country name is inva
     return success;
 }
 
-- (BOOL)validateTime: (NSError **)error
+- (BOOL)validateTime: (NSError * __autoreleasing *)error
 {
     BOOL success = NO;
     if(!self || [self length]== 0){
@@ -341,7 +341,7 @@ NSString const *PSCountryNameInvalidFormatErrorDesc     = @"Country name is inva
     return success;
 }
 
-- (BOOL)validatePlace: (NSError **)error
+- (BOOL)validatePlace: (NSError * __autoreleasing *)error
 {
     BOOL success = NO;
     PSDataValidationErrorCode errorCode = PSEmptyDataValidationErrorCode;
@@ -372,7 +372,7 @@ NSString const *PSCountryNameInvalidFormatErrorDesc     = @"Country name is inva
     return success;
 }
 
-- (BOOL)validateCity: (NSError **)error
+- (BOOL)validateCity: (NSError * __autoreleasing *)error
 {
     BOOL success = NO;
     PSDataValidationErrorCode errorCode = PSEmptyDataValidationErrorCode;
@@ -403,7 +403,7 @@ NSString const *PSCountryNameInvalidFormatErrorDesc     = @"Country name is inva
     return success;
 }
 
-- (BOOL)validateState: (NSError **)error
+- (BOOL)validateState: (NSError * __autoreleasing *)error
 {
     BOOL success = NO;
     PSDataValidationErrorCode errorCode = PSEmptyDataValidationErrorCode;
@@ -434,7 +434,7 @@ NSString const *PSCountryNameInvalidFormatErrorDesc     = @"Country name is inva
     return success;
 }
 
-- (BOOL)validateCountry: (NSError **)error
+- (BOOL)validateCountry: (NSError * __autoreleasing *)error
 {
     BOOL success = NO;
     PSDataValidationErrorCode errorCode = PSEmptyDataValidationErrorCode;
